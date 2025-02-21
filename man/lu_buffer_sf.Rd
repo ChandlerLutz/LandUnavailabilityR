@@ -4,7 +4,13 @@
 \alias{lu_buffer_sf}
 \title{Create a buffer around all of the polygons an \code{sf} shapefile}
 \usage{
-lu_buffer_sf(sf.obj, meters = NULL, percent = NULL, out.crs = NULL)
+lu_buffer_sf(
+  sf.obj,
+  meters = NULL,
+  percent = NULL,
+  transform.crs = 5070,
+  out.crs = NULL
+)
 }
 \arguments{
 \item{sf.obj}{A \code{sf} (simple features) polygon object}
@@ -14,16 +20,20 @@ lu_buffer_sf(sf.obj, meters = NULL, percent = NULL, out.crs = NULL)
 \item{percent}{the percentage with which to increase each
 polygon. Needs to be between 0 and 1.}
 
+\item{transform.crs}{The CRS to use for the buffer
+calculation. Defaults to `5070` which is the equal area
+projection for the North America}
+
 \item{out.crs}{The CRS for the returned data. If \code{NULL}, the
 CRS of the original \code{sf.obj} will be used. Defualt is
 \code{NULL}.}
 }
 \value{
 A \code{sf} object with where each polygon has a buffer of
-    \code{meters} or \code{percent}
+  \code{meters} or \code{percent}
 }
 \description{
-Notes: This function will use EPSG 2163 for the calculation of the
+Notes: This function will use EPSG 5070 for the calculation of the
 buffers. This is the equal area projection for the US. See
-\url{https://epsg.io/2163}
+\url{https://epsg.io/5070}
 }

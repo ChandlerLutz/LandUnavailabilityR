@@ -38,21 +38,24 @@ lu_st_transform_all <- function(sf.obj, crs, ...) {
 
 #' Create a buffer around all of the polygons an \code{sf} shapefile
 #'
-#' Notes: This function will use EPSG 2163 for the calculation of the
+#' Notes: This function will use EPSG 5070 for the calculation of the
 #' buffers. This is the equal area projection for the US. See
-#' \url{https://epsg.io/2163}
+#' \url{https://epsg.io/5070}
 #'
 #' @param sf.obj A \code{sf} (simple features) polygon object
 #' @param meters The number of meters to use for the buffer
 #' @param percent the percentage with which to increase each
-#'     polygon. Needs to be between 0 and 1.
+#'   polygon. Needs to be between 0 and 1.
+#' @param transform.crs The CRS to use for the buffer
+#'   calculation. Defaults to `5070` which is the equal area
+#'   projection for the North America
 #' @param out.crs The CRS for the returned data. If \code{NULL}, the
-#'     CRS of the original \code{sf.obj} will be used. Defualt is
-#'     \code{NULL}.
+#'   CRS of the original \code{sf.obj} will be used. Defualt is
+#'   \code{NULL}.
 #' @return A \code{sf} object with where each polygon has a buffer of
-#'     \code{meters} or \code{percent}
+#'   \code{meters} or \code{percent}
 #' @export
-lu_buffer_sf <- function(sf.obj, meters = NULL, percent = NULL, out.crs = NULL) {
+lu_buffer_sf <- function(sf.obj, meters = NULL, percent = NULL, transform.crs = 5070, out.crs = NULL) {
 
 
     if (is.null(meters) && is.null(percent))
@@ -62,8 +65,8 @@ lu_buffer_sf <- function(sf.obj, meters = NULL, percent = NULL, out.crs = NULL) 
     if (is.null(out.crs)) out.crs <- sf::st_crs(sf.obj)$epsg
 
 
-    ##Transform sf.obj to 2163
-    sf.obj <- sf::st_transform(sf.obj, crs = 2163)
+    ##Transform sf.obj to transform.crs
+    sf.obj <- sf::st_transform(sf.obj, crs = transform.crs)
 
     if (!is.null(meters)) {
 
