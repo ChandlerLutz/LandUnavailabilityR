@@ -36,18 +36,24 @@ lu_check_raster_error <- function(file, plot.check = FALSE) {
 #' @export
 lu_get_raster_list <- function(raster.file.path) {
 
-    ##The raw RASTER files for the US
-    raster.files <- list.files(raster.file.path, full.names = TRUE) %>%
-        ##Make sure they end in .tif
-        .[grepl(".tif$", .)]
+  ##The raw RASTER files for the US
+  raster.files <- list.files(raster.file.path, full.names = TRUE) %>%
+    ##Make sure they end in .tif
+    .[grepl(".tif$", ., ignore.case = TRUE)] #ignore case for .TIF
 
-    ##Read in the files
-    raster.list <- lapply(raster.files, raster)
+  ##Read in the files
+  raster.list <- lapply(raster.files, raster)
 
-    return(raster.list)
+  # Extract filenames without extensions and add 'X' if necessary
+  raster.names <- basename(raster.files) %>%  # Get just the filenames
+    gsub("\\.tif$", "", ., ignore.case = TRUE) %>%   # Remove .tif (case-insensitive)
+    ifelse(grepl("^[0-9]", .), paste0("X", .), .) # Add X if starts with a number
 
+  # Set the names of the raster list
+  names(raster.list) <- raster.names
+
+  return(raster.list)
 }
-
 
 #' The CRS of the raster files
 #'
