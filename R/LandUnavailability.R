@@ -141,7 +141,7 @@ LandUnavailability <- R6Class(
       ##temporary raster files
       ##see
       ##https://stackoverflow.com/questions/25426405/raster-package-taking-all-hard-drive
-      junk.folder <- paste0("~/junk", temp.geoid)
+      junk.folder <- paste0("~/junk/", temp.geoid)
       ##create the junk folder
       dir.create(junk.folder)
       rasterOptions(tmpdir = junk.folder)
