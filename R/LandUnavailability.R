@@ -143,7 +143,7 @@ LandUnavailability <- R6Class(
       ##https://stackoverflow.com/questions/25426405/raster-package-taking-all-hard-drive
       junk.folder <- paste0("~/junk/", temp.geoid)
       ##create the junk folder
-      dir.create(junk.folder)
+      dir.create(junk.folder, recursive = TRUE)
       rasterOptions(tmpdir = junk.folder)
 
       out <- try({
