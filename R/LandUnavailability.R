@@ -369,7 +369,7 @@ LandUnavailability <- R6Class(
 
 
       ##The temporary folder for the GEOIDs
-      private$..temp.geoid.folder <- paste0(private$..id,
+      private$..temp.geoid.folder <- paste0("~/", private$..id,
                                             "/", "temp_geoid_files/")
 
       ##The parallel cores
