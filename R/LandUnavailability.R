@@ -164,7 +164,7 @@ LandUnavailability <- R6Class(
           ##remove any potential null objects from the list
           .[!sapply(., is.null)]
 
-        if (length(raster.temp.geoid) >= 20 || self$safe.compute) {
+        if (length(raster.temp.geoid) >= 40 || self$safe.compute) {
           ##For a large number of Raster IDs or if self$safe.compute
           ##is TRUE, mask individually
           ##This is likely slower, but may work better for
